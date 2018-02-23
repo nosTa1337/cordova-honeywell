@@ -54,8 +54,8 @@ public class HoneywellScannerPlugin extends CordovaPlugin implements BarcodeRead
             PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
             result.setKeepCallback(true);
             this.callbackContext.sendPluginResult(result);
-        } else if (action.equals("unregister")) {
-            this.callbackContext = null;
+        } else if (action.equals("claim")) {
+            barcodeReader.claim();
         } else if (action.equals("release")) {
             barcodeReader.release();
         }

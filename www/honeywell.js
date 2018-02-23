@@ -6,9 +6,9 @@ var honeywell = {
         return exec(success, failure, "HoneywellScannerPlugin", "listenForScans", []);
     },
 
-    unregister: function ()
+    claim: function ()
     {
-        return exec(null, null, "HoneywellScannerPlugin", "unregister", []);
+        return exec(null, null, "HoneywellScannerPlugin", "claim", []);
     },
 
     release: function ()
