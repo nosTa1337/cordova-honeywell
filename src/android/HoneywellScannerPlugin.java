@@ -34,7 +34,7 @@ public class HoneywellScannerPlugin extends CordovaPlugin implements BarcodeRead
             public void onCreated(AidcManager aidcManager) {
                 manager = aidcManager;
                 barcodeReader = manager.createBarcodeReader();
-                if(barcodeReader != null){
+                if (barcodeReader != null) {
                     barcodeReader.addBarcodeListener(HoneywellScannerPlugin.this);
                     try {
                         barcodeReader.claim();
@@ -47,22 +47,24 @@ public class HoneywellScannerPlugin extends CordovaPlugin implements BarcodeRead
     }
 
     @Override
-    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        if(action.equals("listenForScans")){
+    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext)
+            throws JSONException {
+        if (action.equals("listenForScans")) {
             this.callbackContext = callbackContext;
             PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
             result.setKeepCallback(true);
             this.callbackContext.sendPluginResult(result);
-        } else if(action.equals("unregister")){
-			this.callbackContext = null;
-		}
+        } else if (action.equals("unregister")) {
+            this.callbackContext = null;
+        } else if (action.equals("release")) {
+            barcodeReader.release();
+        }
         return true;
     }
 
     @Override
     public void onBarcodeEvent(BarcodeReadEvent barcodeReadEvent) {
-        if(this.callbackContext!=null)
-        {
+        if (this.callbackContext != null) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, barcodeReadEvent.getBarcodeData());
             result.setKeepCallback(true);
             this.callbackContext.sendPluginResult(result);
@@ -114,9 +116,8 @@ public class HoneywellScannerPlugin extends CordovaPlugin implements BarcodeRead
         }
     }
 
-    private void NotifyError(String error){
-        if(this.callbackContext!=null)
-        {
+    private void NotifyError(String error) {
+        if (this.callbackContext != null) {
             PluginResult result = new PluginResult(PluginResult.Status.ERROR, error);
             result.setKeepCallback(true);
             this.callbackContext.sendPluginResult(result);

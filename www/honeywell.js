@@ -9,6 +9,11 @@ var honeywell = {
     unregister: function ()
     {
         return exec(null, null, "HoneywellScannerPlugin", "unregister", []);
+    },
+
+    release: function ()
+    {
+        return exec(null, null, "HoneywellScannerPlugin", "release", []);
     }
 };
 
