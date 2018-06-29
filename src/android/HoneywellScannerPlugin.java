@@ -1,5 +1,8 @@
 package com.icsfl.rfsmart.honeywell;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import android.content.Context;
 
 import org.apache.cordova.CallbackContext;
@@ -35,6 +38,9 @@ public class HoneywellScannerPlugin extends CordovaPlugin implements BarcodeRead
                 manager = aidcManager;
                 barcodeReader = manager.createBarcodeReader();
                 if (barcodeReader != null) {
+                    Map<String, Object> properties = new HashMap<String, Object>();
+                    properties.put(BarcodeReader.PROPERTY_EAN_13_CHECK_DIGIT_TRANSMIT_ENABLED, true);
+                    barcodeReader.setProperties(properties);
                     barcodeReader.addBarcodeListener(HoneywellScannerPlugin.this);
                     try {
                         barcodeReader.claim();
